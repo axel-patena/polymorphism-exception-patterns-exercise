@@ -19,6 +19,10 @@ public abstract class Parcel {
 
     public abstract double calculateBaseFee();
 
+    public String getFormattedChargeableWeight() {
+        return String.format("%.2f", getChargeableWeight());
+    }
+
     public double getDeliveryFee() {
         if (deliveryService == null) {
             throw new IllegalStateException("No delivery service selected.");

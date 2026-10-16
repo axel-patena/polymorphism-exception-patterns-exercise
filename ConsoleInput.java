@@ -59,8 +59,20 @@ public class ConsoleInput {
     }
 
     public double readWeight(double maxWeight) {
-        return readValid("Weight in kg (max " + Validator.format(maxWeight) + "): ",
-                raw -> Validator.weight(Validator.parseDecimal(raw, "Weight"), maxWeight));
+        return readWeight("Weight in kg (max " + Validator.format(maxWeight) + "): ", maxWeight, Integer.MAX_VALUE);
+    }
+
+    public double readWeight(double maxWeight, int maxDecimalPlaces) {
+        return readWeight("Weight in kg (max " + Validator.format(maxWeight)
+                + ", up to " + maxDecimalPlaces + " decimal places): ", maxWeight, maxDecimalPlaces);
+    }
+
+    private double readWeight(String prompt, double maxWeight, int maxDecimalPlaces) {
+        return readValid(prompt, raw -> {
+            double weight = Validator.parseDecimal(raw, "Weight");
+            Validator.decimalPlaces(raw, maxDecimalPlaces, "Weight");
+            return Validator.weight(weight, maxWeight);
+        });
     }
 
     public int readPages() {

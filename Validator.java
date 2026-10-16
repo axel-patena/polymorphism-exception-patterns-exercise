@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.util.regex.Pattern;
 
 public final class Validator {
@@ -73,6 +74,18 @@ public final class Validator {
             throw new InvalidInputException("Weight exceeds the maximum of " + format(maxWeight) + " kg for this parcel type!");
         }
         return weight;
+    }
+
+    public static void decimalPlaces(String input, int maxPlaces, String fieldName) throws InvalidInputException {
+        int places = new BigDecimal(input.trim()).stripTrailingZeros().scale();
+        if (places > maxPlaces) {
+            throw new InvalidInputException(fieldName + " can have at most " + maxPlaces + " decimal places!");
+        }
+    }
+
+    public static double decimalPlaces(double value, int maxPlaces, String fieldName) throws InvalidInputException {
+        decimalPlaces(BigDecimal.valueOf(value).toPlainString(), maxPlaces, fieldName);
+        return value;
     }
 
     public static int parseInt(String input, String fieldName) throws InvalidInputException {

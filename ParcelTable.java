@@ -25,7 +25,7 @@ public class ParcelTable {
                 parcel.getTrackingNumber(),
                 parcel.getType(),
                 truncate(parcel.getReceiverName()),
-                String.format("%.2f", parcel.getChargeableWeight()),
+                parcel.getFormattedChargeableWeight(),
                 parcel.getDeliveryService().getName(),
                 String.format("%.2f", parcel.getDeliveryFee()),
                 parcel.getStatus());

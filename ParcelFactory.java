@@ -18,7 +18,7 @@ public class ParcelFactory {
     }
 
     private Document createDocument(String trackingNumber, String receiverName) throws InvalidInputException {
-        double weight = input.readWeight(Document.MAX_WEIGHT);
+        double weight = input.readWeight(Document.MAX_WEIGHT, Document.MAX_DECIMAL_PLACES);
         int pages = input.readPages();
         return new Document(trackingNumber, receiverName, weight, pages);
     }
