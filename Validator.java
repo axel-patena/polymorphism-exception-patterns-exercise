@@ -2,6 +2,7 @@ import java.util.regex.Pattern;
 
 public final class Validator {
     private static final Pattern TRACKING = Pattern.compile("^ABC\\d{4}$");
+    private static final Pattern LETTERS_ONLY = Pattern.compile("^\\p{L}+( \\p{L}+)*$");
     private static final Pattern DECIMAL = Pattern.compile("^(\\d+(\\.\\d*)?|\\.\\d+)$");
 
     private Validator() {
@@ -23,6 +24,14 @@ public final class Validator {
             throw new InvalidInputException(fieldName + " cannot be empty!");
         }
         return input.trim();
+    }
+
+    public static String receiverName(String input) throws InvalidInputException {
+        String name = nonEmpty(input, "Receiver name").replaceAll("\\s+", " ");
+        if (!LETTERS_ONLY.matcher(name).matches()) {
+            throw new InvalidInputException("Receiver name must contain letters only!");
+        }
+        return name;
     }
 
     public static double parseDecimal(String input, String fieldName) throws InvalidInputException {

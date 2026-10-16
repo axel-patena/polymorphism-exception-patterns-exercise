@@ -8,7 +8,7 @@ public abstract class Parcel {
     protected Parcel(String trackingNumber, String receiverName, double weight, double maxWeight)
             throws InvalidInputException {
         this.trackingNumber = Validator.trackingNumber(trackingNumber);
-        this.receiverName = Validator.nonEmpty(receiverName, "Receiver name");
+        this.receiverName = Validator.receiverName(receiverName);
         this.weight = Validator.weight(weight, maxWeight);
         this.status = DeliveryStatus.PENDING;
     }

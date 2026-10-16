@@ -55,7 +55,7 @@ public class ConsoleInput {
     }
 
     public String readReceiverName() {
-        return readValid("Receiver Name: ", raw -> Validator.nonEmpty(raw, "Receiver name"));
+        return readValid("Receiver Name: ", Validator::receiverName);
     }
 
     public double readWeight(double maxWeight) {
