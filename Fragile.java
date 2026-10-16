@@ -7,7 +7,7 @@ public class Fragile extends Box {
     public Fragile(String trackingNumber, String receiverName, double weight,
                    int length, int width, int height, String handlingNote) throws InvalidInputException {
         super(trackingNumber, receiverName, weight, length, width, height, MAX_WEIGHT);
-        this.handlingNote = Validator.nonEmpty(handlingNote, "Handling note");
+        this.handlingNote = Validator.handlingNote(handlingNote);
     }
 
     public String getHandlingNote() {

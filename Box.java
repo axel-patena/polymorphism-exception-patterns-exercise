@@ -1,5 +1,6 @@
 public class Box extends Parcel {
     public static final double MAX_WEIGHT = 50.0;
+    public static final int MAX_DIMENSION = 100;
     private static final double RATE_PER_KG = 40.0;
     private static final double VOLUMETRIC_DIVISOR = 3500.0;
 
@@ -15,9 +16,9 @@ public class Box extends Parcel {
     protected Box(String trackingNumber, String receiverName, double weight,
                   int length, int width, int height, double maxWeight) throws InvalidInputException {
         super(trackingNumber, receiverName, weight, maxWeight);
-        this.length = Validator.dimension(length, "Length");
-        this.width = Validator.dimension(width, "Width");
-        this.height = Validator.dimension(height, "Height");
+        this.length = Validator.dimension(length, "Length", MAX_DIMENSION);
+        this.width = Validator.dimension(width, "Width", MAX_DIMENSION);
+        this.height = Validator.dimension(height, "Height", MAX_DIMENSION);
     }
 
     public int getLength() {

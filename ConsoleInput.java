@@ -69,12 +69,12 @@ public class ConsoleInput {
     }
 
     public int readDimension(String name) {
-        return readValid(name + " in cm: ",
-                raw -> Validator.dimension(Validator.parseInt(raw, name), name));
+        return readValid(name + " in cm (max " + Box.MAX_DIMENSION + "): ",
+                raw -> Validator.dimension(Validator.parseInt(raw, name), name, Box.MAX_DIMENSION));
     }
 
     public String readHandlingNote() {
-        return readValid("Handling Note: ", raw -> Validator.nonEmpty(raw, "Handling note"));
+        return readValid("Handling Note: ", Validator::handlingNote);
     }
 
     public DeliveryService readDeliveryService() {

@@ -27,11 +27,19 @@ public final class Validator {
     }
 
     public static String receiverName(String input) throws InvalidInputException {
-        String name = nonEmpty(input, "Receiver name").replaceAll("\\s+", " ");
-        if (!LETTERS_ONLY.matcher(name).matches()) {
-            throw new InvalidInputException("Receiver name must contain letters only!");
+        return lettersOnly(input, "Receiver name");
+    }
+
+    public static String handlingNote(String input) throws InvalidInputException {
+        return lettersOnly(input, "Handling note");
+    }
+
+    private static String lettersOnly(String input, String fieldName) throws InvalidInputException {
+        String text = nonEmpty(input, fieldName).replaceAll("\\s+", " ");
+        if (!LETTERS_ONLY.matcher(text).matches()) {
+            throw new InvalidInputException(fieldName + " must contain letters only!");
         }
-        return name;
+        return text;
     }
 
     public static double parseDecimal(String input, String fieldName) throws InvalidInputException {
@@ -86,9 +94,12 @@ public final class Validator {
         return value;
     }
 
-    public static int dimension(int value, String fieldName) throws InvalidInputException {
+    public static int dimension(int value, String fieldName, int maxValue) throws InvalidInputException {
         if (value <= 0) {
             throw new InvalidInputException(fieldName + " must be greater than 0!");
+        }
+        if (value > maxValue) {
+            throw new InvalidInputException(fieldName + " cannot exceed " + maxValue + " cm!");
         }
         return value;
     }
